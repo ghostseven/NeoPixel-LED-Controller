@@ -1,0 +1,20 @@
+{
+    "name": "Light Friendly Name",
+    "device_id": "dns-mqtt-name",
+    "wifi": {
+      "ssid": "WIFI_SSID",
+      "password": "WIFI_PASSWORD"
+    },
+    "mqtt": {
+      "host": "xxx.xxx.xxx.xxx",
+      "port": 1883,
+      "base_topic": "livingroom/light/",
+      "username": "MQTT_USERNAME",
+      "password": "MQTT_PASSWORD",
+      "retained": true
+    },
+    "effect_sw":{
+      "effect_index": 4,
+      "effect_seconds": 0
+    }
+  } 

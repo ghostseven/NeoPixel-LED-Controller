@@ -78,6 +78,7 @@ class LED{
         void SnowSparkle(HSV colour, int SparkleDelay, int SpeedDelay);
         
         HSV _colour;
+        HSV _pre_effect_colour;
         int _effect_index;
         unsigned int _effect_timeout;
         int _next_effect_index;

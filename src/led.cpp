@@ -158,6 +158,8 @@ void LED::showStrip() {
 }
 
 void LED::setEffect(int e_index, int e_seconds){
+  //copy live colour object to pre-effect backup to restore after effect.
+  _pre_effect_colour = _colour;
   // check we have a valid effect id, if not clear effect settings and carry on.
   if(e_index>0 && e_index <15){
     // restore birghtness as an effect may have scaled it.
@@ -295,6 +297,8 @@ void LED::runEffect(){
 void LED::endEffect(){
   _effect_takes_colour = false;
   _exit_effect = false;
+  //restore colour object 
+  _colour = _pre_effect_colour;
   if(_next_effect_index >0){
     _effect_index = _next_effect_index;
     _next_effect_index = 0;
@@ -304,7 +308,7 @@ void LED::endEffect(){
     _effect_index = 0;
     _effect_timeout = 0;
     _next_effect_index = 0;
-    _next_effect_timeout = 0;    
+    _next_effect_timeout = 0;   
     if(_colour.v>0){ //we have a value above 0 so set back to stored HSV
       setAllHSV();
     }else{
@@ -489,7 +493,6 @@ void LED::theaterChaseRainbow(int SpeedDelay) {
           setPixel(i+q, *c, *(c+1), *(c+2));    //turn every third pixel on
         }
         showStrip();
-       
         FastLED.delay(SpeedDelay);
        
         for (int i=0; i < NUM_LEDS; i=i+3) {

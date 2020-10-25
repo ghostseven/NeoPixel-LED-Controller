@@ -46,7 +46,7 @@ class LED{
         void setAllHSV();
         void setBlank();
         void showStrip();
-        void setEffect(int e_index, int e_seconds);
+        void setEffect(int e_index, int e_seconds, boolean r_effect);
         void exitEffect();
 
         int getEffect();
@@ -82,9 +82,10 @@ class LED{
         int _effect_index;
         unsigned int _effect_timeout;
         int _next_effect_index;
-        unsigned int _next_effect_timeout;        
+        unsigned int _next_effect_timeout;   
         boolean _effect_takes_colour = false;
         boolean _exit_effect = false;
+        boolean _restore_effect = false;
         PubSubClient * _MQTTClient;
         config * _cfg;
 };

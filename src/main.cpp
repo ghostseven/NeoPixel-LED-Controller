@@ -31,7 +31,7 @@ void callbackMQTT(char* p_topic, byte* p_payload, unsigned int p_length) {
         sprintf(_MQTT_TOPIC,"%s%s",cfg.mqtt.full_topic,"/effectsw");
         if (strcmp(_MQTT_TOPIC,p_topic) == 0) {
             if(payload == "true"){
-                led.setEffect(cfg.effect_sw.effect_index, cfg.effect_sw.effect_seconds);
+                led.setEffect(cfg.effect_sw.effect_index, cfg.effect_sw.effect_seconds, false);
             }else{
                 led.exitEffect();
             }
@@ -49,13 +49,14 @@ void callbackMQTT(char* p_topic, byte* p_payload, unsigned int p_length) {
         deserializeJson(doc, p_payload, p_length);
         int _ei = doc["effect_index"];
         int _es = doc["effect_seconds"]; //Will be 0 if no value set
-        led.setEffect(_ei,_es);
+        boolean _ef = doc["effect_restore"];
+        led.setEffect(_ei,_es,_ef);
     }
 
     sprintf(_MQTT_TOPIC,"%s%s",cfg.mqtt.full_topic,"/effectsw/set");
     if (strcmp(_MQTT_TOPIC,p_topic) == 0) {
         if(payload == "true"){
-            led.setEffect(cfg.effect_sw.effect_index, cfg.effect_sw.effect_seconds);
+            led.setEffect(cfg.effect_sw.effect_index, cfg.effect_sw.effect_seconds, false);
         }else{
             led.exitEffect();
          }

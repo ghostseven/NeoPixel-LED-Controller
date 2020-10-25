@@ -132,6 +132,7 @@ void LED::setAll(byte red, byte green, byte blue) {
 //set all leds to colour to a specific HSV and store as current
 void LED::setAllHSV(HSV colour){ 
     _colour = colour;
+    _pre_effect_colour = colour;
     if(_effect_index>0 && _effect_takes_colour == false){_exit_effect = true;}
     fill_solid(leds, NUM_LEDS, CHSV(colour.h,colour.s,colour.v));
     showStrip();
@@ -157,7 +158,9 @@ void LED::showStrip() {
   _MQTTClient->loop();
 }
 
-void LED::setEffect(int e_index, int e_seconds){
+void LED::setEffect(int e_index, int e_seconds, boolean r_effect){
+  //flag if we should restore any previous running effect after this is completed 
+  _restore_effect = r_effect;
   //copy live colour object to pre-effect backup to restore after effect.
   _pre_effect_colour = _colour;
   // check we have a valid effect id, if not clear effect settings and carry on.
@@ -300,10 +303,19 @@ void LED::endEffect(){
   //restore colour object 
   _colour = _pre_effect_colour;
   if(_next_effect_index >0){
+    int _tmp_ei = _effect_index;
+    unsigned int _tmp_et = _effect_timeout;
     _effect_index = _next_effect_index;
-    _next_effect_index = 0;
     _effect_timeout = _next_effect_timeout;
-    _next_effect_timeout = 0;
+
+    if(_restore_effect){
+      _next_effect_index = _tmp_ei;
+      _next_effect_timeout = _tmp_et; 
+      _restore_effect = false;
+    }else{
+      _next_effect_index = 0;
+      _next_effect_timeout = 0; 
+    }
   }else{
     _effect_index = 0;
     _effect_timeout = 0;

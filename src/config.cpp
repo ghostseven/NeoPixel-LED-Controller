@@ -28,7 +28,7 @@ bool config::loadConfig(){
     std::unique_ptr<char[]> buf(new char[size]);
     configFile.readBytes(buf.get(), size);
 
-    StaticJsonDocument<500> doc;
+    StaticJsonDocument<700> doc;
     auto error = deserializeJson(doc, buf.get());
     if (error) {
         Serial.println("Failed to parse config file");

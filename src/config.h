@@ -21,7 +21,7 @@ class config_mqtt
     public:
         char host[64];
         int port;
-        char base_topic[26];
+        char base_topic[30];
         char full_topic[52];
         char username[64];
         char password[64];

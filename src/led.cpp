@@ -131,6 +131,7 @@ void LED::setAll(byte red, byte green, byte blue) {
 
 //set all leds to colour to a specific HSV and store as current
 void LED::setAllHSV(HSV colour){ 
+    setBlank();
     _colour = colour;
     _pre_effect_colour = colour;
     if(_effect_index>0 && _effect_takes_colour == false){_exit_effect = true;}
@@ -249,7 +250,7 @@ void LED::runEffect(){
 
   case 7 : {
               // Fire - Cooling rate, Sparking rate, speed delay
-              Fire(55,40,80);
+              Fire(55,40,140);
               break;
             }
             

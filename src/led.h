@@ -7,15 +7,18 @@
 #include <config.h>
 
 /*DESK 73 - 3D Printer 18 - TV  95*/
-/*SML Candle Strip 12 - LRG Candle 16*/ 
+/*SML Candle Strip 12 - */
+/*LRG Candle 16 (RING)*/ 
 /*LRG Candle V2 6*/
 /*Fireplace 22*/
 /*Basement Stairs 96*/
+/*Rack Lights 30*/
+/*Arc Reactor 12*/
 
-#define NUM_LEDS 73
+#define NUM_LEDS 18
 #define LED_PIN D5
 #define LED_STRIP_VOLTAGE 5
-#define LED_STRIP_MILLIAMPS 4000 
+#define LED_STRIP_MILLIAMPS 850
 
 extern CRGB leds[NUM_LEDS];
 
